@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  youphptube:
+    image: youphptube:latest
+    restart: always
+    hostname: youphptube.lan
+    ports:
+      - 8888:8000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/youphptube/:/var/www/html/videos
+
+  youphptube-encoder:
+    image: youphptube-encoder:latest
+    restart: always
+    hostname: youphptube-encoder.lan
+    ports:
+      - 8889:8000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/youphptube-encoder/:/var/www/html/videos
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
